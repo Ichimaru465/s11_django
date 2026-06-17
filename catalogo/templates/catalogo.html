@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+Inicio | TecnoMarket
+{% endblock %}
+
+{% block encabezado %}
+Catálogo tecnológico para inventario y ventas
+{% endblock %}
+
+{% block descripcion %}
+Una vista moderna para presentar productos, categorías, stock y precios. Los registros reales se gestionan desde el panel administrativo de Django.
+{% endblock %}
+
+{% block contenido %}
+<section class="stats">
+    <article class="stat">
+        <span>Productos destacados</span>
+        <strong>{{ resumen.total_productos }}</strong>
+    </article>
+    <article class="stat">
+        <span>Categorías activas</span>
+        <strong>{{ resumen.categorias }}</strong>
+    </article>
+    <article class="stat">
+        <span>Unidades en stock</span>
+        <strong>{{ resumen.stock_total }}</strong>
+    </article>
+</section>
+
+<section class="section-title">
+    <div>
+        <h2>Productos de muestra</h2>
+        <p>Datos referenciales para mostrar cómo se vería el catálogo con información completa.</p>
+    </div>
+</section>
+
+<section class="grid">
+    {% for producto in productos %}
+    <article class="card">
+        <span class="badge">{{ producto.etiqueta }}</span>
+        <h3>{{ producto.nombre|title }}</h3>
+        <p>{{ producto.descripcion }}</p>
+        <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
+        <p><strong>Stock:</strong> {{ producto.stock }} unidades</p>
+        <div class="price">S/. {{ producto.precio }}</div>
+    </article>
+    {% endfor %}
+</section>
+
+<section class="admin-box">
+    <h2>Gestión desde Django Admin</h2>
+    <p>El modelo <strong>Producto</strong> está registrado en el panel administrativo de Django.</p>
+    <p>Después de crear el usuario administrador con:</p>
+    <code>python manage.py createsuperuser</code>
+    <p>puedes gestionar los registros desde:</p>
+    <code>http://127.0.0.1:8000/admin</code>
+</section>
+
+{% endblock %}
